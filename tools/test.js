@@ -285,6 +285,40 @@ const noToEverything = { allowAll: false, check: async () => false };
     assert.ok(html.includes('Please wait a little; it takes time.'));
   });
 
+  await test('the install command on every page is one that works today', () => {
+    // Until forgegrit-open is on the npm registry, no page may tell people to
+    // `npm install -g forgegrit-open` — it would just fail for them.
+    const published = false;
+    const pages = [
+      path.join(ROOT, 'index.html'),
+      path.join(ROOT, 'docs/cli.html'),
+      path.join(ROOT, 'docs/publishing-to-npm.html'),
+      ...registry.ids().map((id) => path.join(ROOT, 'models', id, 'index.html')),
+    ];
+    for (const page of pages) {
+      const html = fs.readFileSync(page, 'utf8');
+      if (!published) {
+        assert.ok(
+          !/npm install -g forgegrit-open/.test(html),
+          path.relative(ROOT, page) + ' points at an unpublished npm package'
+        );
+      }
+    }
+    for (const id of registry.ids()) {
+      const html = fs.readFileSync(path.join(ROOT, 'models', id, 'index.html'), 'utf8');
+      assert.ok(html.includes('npm install -g ./ForgeGrit-Open'), id + ' install command');
+    }
+  });
+
+  await test('both docs pages render their markdown source', () => {
+    for (const slug of ['cli', 'publishing-to-npm']) {
+      const html = fs.readFileSync(path.join(ROOT, `docs/${slug}.html`), 'utf8');
+      assert.ok(fs.existsSync(path.join(ROOT, `docs/${slug}.md`)), slug + '.md missing');
+      assert.ok(html.includes(`fetch('${slug}.md'`), slug + ' fetch');
+      assert.ok(html.includes('assets/md.js'), slug + ' renderer');
+    }
+  });
+
   await test('every model folder has a README, an index.html and an ollama.txt', () => {
     for (const id of registry.ids()) {
       const dir = path.join(ROOT, 'models', id);

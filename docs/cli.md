@@ -6,18 +6,27 @@ Every model runs locally on your own machine, through Ollama.
 ## Install
 
 ```bash
-npm install -g forgegrit-open
-```
-
-Or from a clone:
-
-```bash
 git clone https://github.com/Trey16885/ForgeGrit-Open
 cd ForgeGrit-Open
 npm install -g .
 ```
 
-Node 18 or newer.
+Or as one line:
+
+```bash
+git clone https://github.com/Trey16885/ForgeGrit-Open && npm install -g ./ForgeGrit-Open
+```
+
+Node 18 or newer. That is all it takes — `forge` is on your PATH afterwards and
+works from any folder.
+
+To update later, `git pull` in that clone and run `npm install -g .` again.
+
+> Once `forgegrit-open` is published to the npm registry, `npm install -g
+> forgegrit-open` will work too. See
+> [publishing-to-npm.md](publishing-to-npm.md). Installing straight from a git
+> URL (`npm install -g git+https://...`) is **not** recommended — npm 10 has a
+> bug that leaves the global install pointing at a deleted cache folder.
 
 ### Ollama is required
 
