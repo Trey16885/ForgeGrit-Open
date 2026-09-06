@@ -12,9 +12,14 @@ corporate summary-speak the moment a chapter gets long.
 |---|---|
 | CLI model ID | `claude-fable-5-1` |
 | Ollama model | `treyleo16/fable-5-1` |
-| Parameters | 8B |
-| Context | 32K |
 | Publisher | treyleo16 |
+
+For size, quantisation and context length, ask the model itself once it is
+installed:
+
+```bash
+ollama show treyleo16/fable-5-1
+```
 
 ## Install
 
@@ -66,8 +71,3 @@ into that first message.
 |---|---|
 | Chatbot | Drafting, brainstorming, editing in conversation |
 | Agent | Writing chapters straight to files in the folder you `cd`'d into |
-
-## License
-
-ForgeGrit Open Model License. Personal and commercial use allowed. You own what
-you write with it.

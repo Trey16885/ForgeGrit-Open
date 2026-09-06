@@ -12,9 +12,14 @@ middle of most conversations without falling over.
 |---|---|
 | CLI model ID | `gpt-6-astra` |
 | Ollama model | `treyleo16/gpt-6-astra` |
-| Parameters | 12B |
-| Context | 64K |
 | Publisher | treyleo16 |
+
+For size, quantisation and context length, ask the model itself once it is
+installed:
+
+```bash
+ollama show treyleo16/gpt-6-astra
+```
 
 ## Install
 
@@ -45,9 +50,8 @@ want and it holds to it.
 Answer in three bullets. No preamble. If you are unsure, say which part.
 ```
 
-It is the biggest of the four models here at 12B, so it is also the slowest on a
-laptop CPU. If it feels sluggish, `forge search models --recommended` will show
-you lighter options.
+If it feels slow on your machine, that is the model size against your hardware.
+`ollama show treyleo16/gpt-6-astra` tells you what you are actually running.
 
 ## Modes
 
@@ -55,7 +59,3 @@ you lighter options.
 |---|---|
 | Chatbot | Questions, explanations, drafting, day to day work |
 | Agent | Reading a folder and reporting on it, small edits, file cleanup |
-
-## License
-
-ForgeGrit Open Model License.

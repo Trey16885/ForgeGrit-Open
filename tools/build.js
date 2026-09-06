@@ -129,15 +129,30 @@ document.addEventListener('click', function (e) {
 
 /* ---------- index.html ---------- */
 
+/** Spec chips, only for specs the catalog actually records. */
+function specChips(m) {
+  const chips = [];
+  if (m.params) chips.push(`<span class="chip">${esc(m.params)}</span>`);
+  if (m.context) chips.push(`<span class="chip">${esc(m.context)} ctx</span>`);
+  return chips.length ? chips.join('\n          ') + '\n          ' : '';
+}
+
+/** Optional rows in the Details panel — absent fields are simply not claimed. */
+function detailRows(m) {
+  const rows = [];
+  if (m.params) rows.push(`          <dt>Parameters</dt><dd>${esc(m.params)}</dd>`);
+  if (m.context) rows.push(`          <dt>Context</dt><dd>${esc(m.context)}</dd>`);
+  if (m.license) rows.push(`          <dt>License</dt><dd>${esc(m.license)}</dd>`);
+  return rows.length ? rows.join('\n') + '\n' : '';
+}
+
 function card(m) {
   return `      <a class="card" href="models/${esc(m.id)}/" data-search="${esc([m.name, m.id, m.ollama, m.summary, m.tags.join(' ')].join(' ').toLowerCase())}" data-recommended="${m.recommended ? 'yes' : 'no'}">
         <h3>${esc(m.name)}${m.recommended ? ' <span class="star" title="Recommended">★ recommended</span>' : ''}</h3>
         <div class="cid">${esc(m.id)}</div>
         <p>${esc(m.summary)}</p>
         <div class="meta">
-          <span class="chip">${esc(m.params)}</span>
-          <span class="chip">${esc(m.context)} ctx</span>
-          ${m.tags.slice(0, 3).map((t) => `<span class="chip">${esc(t)}</span>`).join('\n          ')}
+          ${specChips(m)}${m.tags.slice(0, 3).map((t) => `<span class="chip">${esc(t)}</span>`).join('\n          ')}
         </div>
       </a>`;
 }
@@ -233,7 +248,8 @@ ${footer(0)}
 </body>`
 );
 
-fs.writeFileSync(path.join(ROOT, 'index.html'), indexHtml);
+function writeAll() {
+  fs.writeFileSync(path.join(ROOT, 'index.html'), indexHtml);
 
 /* ---------- models/<id>/index.html ---------- */
 
@@ -254,9 +270,7 @@ function modelPage(m) {
     <p class="sum">${esc(m.summary)}</p>
     <div class="meta">
       ${m.recommended ? '<span class="chip hot">★ recommended</span>' : ''}
-      <span class="chip">${esc(m.params)}</span>
-      <span class="chip">${esc(m.context)} ctx</span>
-      ${m.tags.map((t) => `<span class="chip">${esc(t)}</span>`).join('\n      ')}
+      ${specChips(m)}${m.tags.map((t) => `<span class="chip">${esc(t)}</span>`).join('\n      ')}
     </div>
   </div>
 
@@ -276,11 +290,12 @@ ${install.map(([cmd]) => `        <div class="copyrow"><code>${esc(cmd)}</code><
         <dl class="kv">
           <dt>CLI model ID</dt><dd>${esc(m.id)}</dd>
           <dt>Ollama model</dt><dd>${esc(m.ollama)}</dd>
-          <dt>Parameters</dt><dd>${esc(m.params)}</dd>
-          <dt>Context</dt><dd>${esc(m.context)}</dd>
-          <dt>Publisher</dt><dd>${esc(m.publisher)}</dd>
-          <dt>License</dt><dd>${esc(m.license)}</dd>
+${detailRows(m)}          <dt>Publisher</dt><dd>${esc(m.publisher)}</dd>
         </dl>
+        <p style="margin:12px 0 0;color:var(--ink-faint);font-size:12.5px">
+          Size and context come from the model itself — run
+          <code>ollama show ${esc(m.ollama)}</code> after installing it.
+        </p>
       </div>
 
       <div class="panel">
@@ -326,11 +341,11 @@ fetch('README.md', { cache: 'no-cache' })
   );
 }
 
-for (const m of catalog.models) {
-  const dir = path.join(ROOT, 'models', m.id);
-  fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, 'index.html'), modelPage(m));
-}
+  for (const m of catalog.models) {
+    const dir = path.join(ROOT, 'models', m.id);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'index.html'), modelPage(m));
+  }
 
 /* ---------- docs pages ---------- */
 
@@ -436,11 +451,18 @@ const docs = [
   },
 ];
 
-fs.mkdirSync(path.join(ROOT, 'docs'), { recursive: true });
-for (const doc of docs) {
-  fs.writeFileSync(path.join(ROOT, `docs/${doc.slug}.html`), docPage(doc));
+  fs.mkdirSync(path.join(ROOT, 'docs'), { recursive: true });
+  for (const doc of docs) {
+    fs.writeFileSync(path.join(ROOT, `docs/${doc.slug}.html`), docPage(doc));
+  }
+
+  console.log(
+    `built index.html, ${docs.length} docs pages and ${catalog.models.length} model pages`
+  );
 }
 
-console.log(
-  `built index.html, ${docs.length} docs pages and ${catalog.models.length} model pages`
-);
+// Only write when run as a command. Requiring this file (the tests do, for the
+// helpers) must not regenerate the pages — that would hide a stale build.
+if (require.main === module) writeAll();
+
+module.exports = { writeAll, helpers: { specChips, detailRows } };

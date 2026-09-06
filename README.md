@@ -147,3 +147,14 @@ never touches a real Ollama install and never pulls a real model.
 
 The build fails loudly if `CLI.txt`, `models.json` and the `ollama.txt` files
 disagree with each other.
+
+**Do not guess a model's specs.** `params`, `context` and `license` in
+`models.json` are optional — leave a field out and the site simply does not
+show it. Fill one in only from the model file itself:
+
+```bash
+ollama show <ollama-model-id>
+```
+
+A test fails the build if a page states a parameter count, context length or
+license that `models.json` does not actually record.

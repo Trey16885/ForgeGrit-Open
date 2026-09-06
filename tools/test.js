@@ -21,6 +21,8 @@ const ollama = require(path.join(ROOT, 'cli/src/ollama.js'));
 require(path.join(ROOT, 'assets/md.js'));
 const md = globalThis.ForgeMarkdown;
 
+const buildHelpers = require(path.join(ROOT, 'tools/build.js')).helpers;
+
 let passed = 0;
 let failed = 0;
 const only = process.argv[2];
@@ -308,6 +310,41 @@ const noToEverything = { allowAll: false, check: async () => false };
       const html = fs.readFileSync(path.join(ROOT, 'models', id, 'index.html'), 'utf8');
       assert.ok(html.includes('npm install -g ./ForgeGrit-Open'), id + ' install command');
     }
+  });
+
+  await test('no page claims a spec the catalog does not record', () => {
+    // These models are GGUF conversions — parameter counts and context lengths
+    // belong to the model file, not to us. A page may only state a spec that
+    // models.json actually carries, so nothing here can be a guess.
+    for (const m of registry.catalog()) {
+      const page = fs.readFileSync(path.join(ROOT, 'models', m.id, 'index.html'), 'utf8');
+      const readme = fs.readFileSync(path.join(ROOT, 'models', m.id, 'README.md'), 'utf8');
+
+      if (!m.params) {
+        assert.ok(!/<dt>Parameters<\/dt>/.test(page), m.id + ' page states a parameter count');
+        assert.ok(!/^\|\s*Parameters\s*\|/m.test(readme), m.id + ' README states a parameter count');
+      }
+      if (!m.context) {
+        assert.ok(!/ctx<\/span>/.test(page), m.id + ' page states a context length');
+        assert.ok(!/^\|\s*Context\s*\|/m.test(readme), m.id + ' README states a context length');
+      }
+      if (!m.license) {
+        assert.ok(!/<dt>License<\/dt>/.test(page), m.id + ' page states a license');
+      }
+    }
+  });
+
+  await test('a model with real specs still renders them', () => {
+    // The optional fields have to work when they are filled in, or the guard
+    // above would quietly become "specs never render at all".
+    const withSpecs = { id: 'x', name: 'X', ollama: 'o/x', publisher: 'p', summary: 's',
+      tags: ['t'], recommended: false, params: '7B', context: '32K', license: 'MIT' };
+    const chips = buildHelpers.specChips(withSpecs);
+    const rows = buildHelpers.detailRows(withSpecs);
+    assert.ok(chips.includes('7B') && chips.includes('32K ctx'), chips);
+    assert.ok(rows.includes('7B') && rows.includes('32K') && rows.includes('MIT'), rows);
+    assert.strictEqual(buildHelpers.specChips({ tags: [] }), '');
+    assert.strictEqual(buildHelpers.detailRows({}), '');
   });
 
   await test('both docs pages render their markdown source', () => {

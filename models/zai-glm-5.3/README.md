@@ -11,9 +11,14 @@ table, a config file, a tool call — and when the conversation is not in Englis
 |---|---|
 | CLI model ID | `zai-glm-5.3` |
 | Ollama model | `treyleo16/glm:5-3` |
-| Parameters | 9B |
-| Context | 128K |
 | Publisher | treyleo16 |
+
+For size, quantisation and context length, ask the model itself once it is
+installed:
+
+```bash
+ollama show treyleo16/glm:5-3
+```
 
 ## Install
 
@@ -30,7 +35,7 @@ this model's `ollama.txt`, so you never have to type it yourself.
 - JSON, YAML and CSV that actually parses
 - Translation and multilingual chat
 - Driving ForgeGrit **agent mode**, where every action is a structured block
-- Very long inputs — 128K context, the largest on the site
+- Long inputs
 - Extracting fields out of messy text
 
 ## What it is not
@@ -58,7 +63,3 @@ of the action format.
 |---|---|
 | Chatbot | Translation, extraction, structured answers |
 | Agent | Multi file edits, config generation, repetitive refactors |
-
-## License
-
-ForgeGrit Open Model License.

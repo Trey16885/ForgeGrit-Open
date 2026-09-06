@@ -12,9 +12,14 @@ saying what it changed.
 |---|---|
 | CLI model ID | `muse-code` |
 | Ollama model | `treyleo16/muse-code` |
-| Parameters | 7B |
-| Context | 32K |
 | Publisher | treyleo16 |
+
+For size, quantisation and context length, ask the model itself once it is
+installed:
+
+```bash
+ollama show treyleo16/muse-code
+```
 
 ## Install
 
@@ -33,8 +38,8 @@ forge run muse-code --agent
 
 ## What it is not
 
-It is 7B. It is fast and it is useful, but it is not going to redesign your
-architecture. Keep the asks concrete and local and it earns its keep.
+Keep the asks concrete and local and it earns its keep. Broad "redesign my
+architecture" prompts are not what it is for.
 
 ## Prompting notes
 
@@ -58,7 +63,3 @@ error" without any risk to the folder you are sitting in.
 |---|---|
 | Chatbot | Explaining code, snippets, debugging by conversation |
 | Agent | Real edits in the folder you `cd`'d into |
-
-## License
-
-ForgeGrit Open Model License.

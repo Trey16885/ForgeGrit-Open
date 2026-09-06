@@ -188,7 +188,7 @@ the CLI follows it for both the server and its own requests.
 | `models/<id>/ollama.txt` | the Ollama model id, on one line |
 | `models/<id>/README.md` | the model's documentation |
 | `models/<id>/index.html` | the model's page on the site |
-| `models.json` | names, summaries, tags, recommended flags |
+| `models.json` | names, summaries, tags, recommended flags (specs optional) |
 | `~/.forgegrit/serve.log` | output from the background `ollama serve` |
 
 Set `FORGE_HOME` to point the CLI at a different checkout. Set `FORGE_DEBUG=1`
@@ -206,3 +206,11 @@ CLI. `forge search models --recommended` lists lighter options.
 
 **`forge doctor`** — prints all of it: Ollama version, registry location,
 model count, whether a server is answering, and what is installed.
+
+**How big is a model, really?** ForgeGrit does not claim parameter counts or
+context lengths for the models it lists — those belong to the model file. Ask
+Ollama once the model is installed:
+
+```bash
+ollama show treyleo16/muse-code
+```
