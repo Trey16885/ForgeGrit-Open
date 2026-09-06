@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ForgeGrit Open">
+  <title>ForgeGrit Open</title>
+  <defs>
+    <linearGradient id="fg-ember" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#ff8a2e"/>
+      <stop offset="1" stop-color="#e2600c"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#fg-ember)"/>
+  <!-- Anvil. Deep notches either side of the waist so the silhouette still
+       reads at 16px, where the three parts otherwise blur into one block. -->
+  <g fill="#fff">
+    <path d="M23 17h32v11H23L8 24.5v-3z"/>
+    <path d="M28 28h11l-1 11H29z"/>
+    <path d="M21 39h30l2 9H19z"/>
+  </g>
+</svg>

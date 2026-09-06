@@ -347,6 +347,35 @@ const noToEverything = { allowAll: false, check: async () => false };
     assert.strictEqual(buildHelpers.detailRows({}), '');
   });
 
+  await test('the icon set exists and every page links it at the right depth', () => {
+    for (const f of ['mark.svg', 'logo.svg', 'favicon-32.png', 'favicon-192.png', 'apple-touch-icon.png']) {
+      assert.ok(fs.existsSync(path.join(ROOT, 'assets', f)), 'assets/' + f + ' missing');
+    }
+    // PNG magic number + dimensions straight out of the IHDR chunk.
+    const sizes = { 'favicon-32.png': 32, 'favicon-192.png': 192, 'apple-touch-icon.png': 180 };
+    for (const [file, expected] of Object.entries(sizes)) {
+      const buf = fs.readFileSync(path.join(ROOT, 'assets', file));
+      assert.ok(buf.slice(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])), file + ' is not a PNG');
+      assert.strictEqual(buf.readUInt32BE(16), expected, file + ' width');
+      assert.strictEqual(buf.readUInt32BE(20), expected, file + ' height');
+    }
+
+    const pages = [
+      { file: 'index.html', up: './' },
+      { file: 'docs/cli.html', up: '../' },
+      { file: 'docs/publishing-to-npm.html', up: '../' },
+      ...registry.ids().map((id) => ({ file: `models/${id}/index.html`, up: '../../' })),
+    ];
+    for (const { file, up } of pages) {
+      const html = fs.readFileSync(path.join(ROOT, file), 'utf8');
+      assert.ok(html.includes(`href="${up}assets/mark.svg" type="image/svg+xml"`), file + ' svg favicon');
+      assert.ok(html.includes(`href="${up}assets/favicon-32.png"`), file + ' png fallback');
+      assert.ok(html.includes(`rel="apple-touch-icon" href="${up}assets/apple-touch-icon.png"`), file + ' touch icon');
+      assert.ok(html.includes(`<img class="mark" src="${up}assets/mark.svg"`), file + ' topbar logo');
+      assert.ok(!/<span class="mark">F<\/span>/.test(html), file + ' still has the placeholder letter mark');
+    }
+  });
+
   await test('both docs pages render their markdown source', () => {
     for (const slug of ['cli', 'publishing-to-npm']) {
       const html = fs.readFileSync(path.join(ROOT, `docs/${slug}.html`), 'utf8');

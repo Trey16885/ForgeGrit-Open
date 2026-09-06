@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" width="320" height="64" role="img" aria-label="ForgeGrit Open">
+  <title>ForgeGrit Open</title>
+  <defs>
+    <linearGradient id="fg-ember" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#ff8a2e"/>
+      <stop offset="1" stop-color="#e2600c"/>
+    </linearGradient>
+    <style>
+      /* The wordmark follows the viewer's theme, so one file works on the
+         dark site, on a light README, and anywhere else it gets dropped. */
+      .fg-word { fill: #14161a; }
+      .fg-sub  { fill: #6f7681; }
+      @media (prefers-color-scheme: dark) {
+        .fg-word { fill: #e9eaec; }
+      }
+    </style>
+  </defs>
+
+  <rect width="64" height="64" rx="14" fill="url(#fg-ember)"/>
+  <g fill="#fff">
+    <path d="M23 17h32v11H23L8 24.5v-3z"/>
+    <path d="M28 28h11l-1 11H29z"/>
+    <path d="M21 39h30l2 9H19z"/>
+  </g>
+
+  <!-- textLength pins each word to a fixed width, so the lockup lays out the
+       same way whatever font the viewer's machine substitutes. -->
+  <g font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+     font-size="30">
+    <text class="fg-word" x="82" y="42" font-weight="700"
+          textLength="146" lengthAdjust="spacingAndGlyphs">ForgeGrit</text>
+    <text class="fg-sub" x="240" y="42" font-weight="500"
+          textLength="68" lengthAdjust="spacingAndGlyphs">Open</text>
+  </g>
+</svg>

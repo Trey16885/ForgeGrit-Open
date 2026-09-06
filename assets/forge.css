@@ -64,10 +64,8 @@ a:hover { text-decoration: underline; }
 .brand:hover { text-decoration: none; }
 .brand .mark {
   width: 26px; height: 26px;
-  display: grid; place-items: center;
-  border-radius: 7px;
-  background: linear-gradient(160deg, var(--ember), #d1490a);
-  color: #fff; font-size: 14px; font-weight: 800;
+  display: block;
+  flex: none;
 }
 .brand .dim { color: var(--ink-faint); font-weight: 500; }
 .topbar nav { margin-left: auto; display: flex; align-items: center; gap: 20px; min-width: 0; }

@@ -71,13 +71,16 @@ function head(title, depth, description) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23ff7a1a'/><text x='50' y='72' font-size='62' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='white'>F</text></svg>">
+<link rel="icon" href="${up}assets/mark.svg" type="image/svg+xml">
+<link rel="icon" href="${up}assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="${up}assets/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="${up}assets/apple-touch-icon.png">
 <link rel="stylesheet" href="${up}assets/forge.css">
 </head>
 <body>
 <header class="topbar">
   <div class="wrap">
-    <a class="brand" href="${up}index.html"><span class="mark">F</span>ForgeGrit <span class="dim">Open</span></a>
+    <a class="brand" href="${up}index.html"><img class="mark" src="${up}assets/mark.svg" width="26" height="26" alt="">ForgeGrit <span class="dim">Open</span></a>
     <nav>
       <a href="${up}index.html">Models</a>
       <a href="${up}docs/cli.html">CLI</a>
