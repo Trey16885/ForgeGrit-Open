@@ -1,0 +1,42 @@
+{
+  "name": "forgegrit-open",
+  "version": "1.0.0",
+  "description": "ForgeGrit Open — CLI for open models published on ForgeGrit Open, run locally through Ollama.",
+  "bin": {
+    "forge": "cli/bin/forge.js"
+  },
+  "main": "cli/src/registry.js",
+  "scripts": {
+    "build": "node tools/build.js",
+    "test": "node tools/test.js && node tools/e2e.js",
+    "test:unit": "node tools/test.js",
+    "test:e2e": "node tools/e2e.js",
+    "site": "python3 -m http.server 8000"
+  },
+  "files": [
+    "cli/",
+    "models/",
+    "tools/build.js",
+    "CLI.txt",
+    "models.json",
+    "README.md",
+    "docs/cli.md"
+  ],
+  "keywords": [
+    "ollama",
+    "llm",
+    "cli",
+    "forgegrit",
+    "local-ai",
+    "agent"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Trey16885/ForgeGrit-Open.git"
+  },
+  "homepage": "https://github.com/Trey16885/ForgeGrit-Open"
+}

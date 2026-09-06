@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ForgeGrit Open — open models for Ollama</title>
+<meta name="description" content="Open models published on ForgeGrit Open. Install them into the forge CLI and run them locally through Ollama.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23ff7a1a'/><text x='50' y='72' font-size='62' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='white'>F</text></svg>">
+<link rel="stylesheet" href="./assets/forge.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="./index.html"><span class="mark">F</span>ForgeGrit <span class="dim">Open</span></a>
+    <nav>
+      <a href="./index.html">Models</a>
+      <a href="./docs/cli.html">CLI</a>
+      <a class="optional" href="https://ollama.com" target="_blank" rel="noopener">Ollama</a>
+      <a class="optional" href="https://github.com/Trey16885/ForgeGrit-Open" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Open models, built for you.</h1>
+      <p>ForgeGrit Open is the model repository for ForgeGrit. Every model here runs
+      locally on your machine through Ollama — install one with the <code>forge</code> CLI
+      and talk to it as a chatbot, or turn it loose on a folder as an agent.</p>
+      <div class="row">
+        <button class="btn btn-primary" id="new-repo">+ New Repository</button>
+        <span class="cmd"><b>$</b> <code>forge install model gpt-6-astra</code></span>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="toolbar">
+      <h2>Models</h2>
+      <div class="spacer"></div>
+      <div class="search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Search models, tags, ids…" autocomplete="off" aria-label="Search models">
+      </div>
+    </div>
+
+    <div class="grid" id="grid">
+      <a class="card" href="models/claude-fable-5-1/" data-search="claude fable 5.1 claude-fable-5-1 treyleo16/fable-5-1 long-form storytelling and creative writing model. holds voice, tone and continuity across very long scenes. writing creative story fiction roleplay long-context" data-recommended="yes">
+        <h3>Claude Fable 5.1 <span class="star" title="Recommended">★ recommended</span></h3>
+        <div class="cid">claude-fable-5-1</div>
+        <p>Long-form storytelling and creative writing model. Holds voice, tone and continuity across very long scenes.</p>
+        <div class="meta">
+          <span class="chip">8B</span>
+          <span class="chip">32K ctx</span>
+          <span class="chip">writing</span>
+          <span class="chip">creative</span>
+          <span class="chip">story</span>
+        </div>
+      </a>
+      <a class="card" href="models/gpt-6-astra/" data-search="gpt 6 astra gpt-6-astra treyleo16/gpt-6-astra general purpose assistant tuned for reasoning, research answers and everyday tasks. the safe default pick. general assistant reasoning chat research" data-recommended="yes">
+        <h3>GPT 6 Astra <span class="star" title="Recommended">★ recommended</span></h3>
+        <div class="cid">gpt-6-astra</div>
+        <p>General purpose assistant tuned for reasoning, research answers and everyday tasks. The safe default pick.</p>
+        <div class="meta">
+          <span class="chip">12B</span>
+          <span class="chip">64K ctx</span>
+          <span class="chip">general</span>
+          <span class="chip">assistant</span>
+          <span class="chip">reasoning</span>
+        </div>
+      </a>
+      <a class="card" href="models/zai-glm-5.3/" data-search="glm 5.3 zai-glm-5.3 treyleo16/glm:5-3 bilingual multilingual model with strong structured output and tool-shaped responses. good agent driver. multilingual agent tools json general" data-recommended="no">
+        <h3>GLM 5.3</h3>
+        <div class="cid">zai-glm-5.3</div>
+        <p>Bilingual multilingual model with strong structured output and tool-shaped responses. Good agent driver.</p>
+        <div class="meta">
+          <span class="chip">9B</span>
+          <span class="chip">128K ctx</span>
+          <span class="chip">multilingual</span>
+          <span class="chip">agent</span>
+          <span class="chip">tools</span>
+        </div>
+      </a>
+      <a class="card" href="models/muse-code/" data-search="muse code muse-code treyleo16/muse-code code model for writing, refactoring and explaining software. built to run well in forgegrit agent mode. code coding agent refactor developer programming" data-recommended="yes">
+        <h3>Muse Code <span class="star" title="Recommended">★ recommended</span></h3>
+        <div class="cid">muse-code</div>
+        <p>Code model for writing, refactoring and explaining software. Built to run well in ForgeGrit agent mode.</p>
+        <div class="meta">
+          <span class="chip">7B</span>
+          <span class="chip">32K ctx</span>
+          <span class="chip">code</span>
+          <span class="chip">coding</span>
+          <span class="chip">agent</span>
+        </div>
+      </a>
+    </div>
+    <p class="empty" id="empty" hidden>No models match that search. Try <a href="#" id="clear-q">clearing the search</a>.</p>
+  </div>
+</main>
+
+<div class="overlay" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <h2 id="modal-title">Model Uploading Instructions</h2>
+    <p class="sub">Publishing a model to ForgeGrit Open</p>
+    <ol>
+      <li>
+        <b>Visit:</b>
+        <div class="link-box"><a href="https://contact2.me/VA7XQI" target="_blank" rel="noopener">https://contact2.me/VA7XQI</a></div>
+      </li>
+      <li>Describe your model or create system instructions, then <b>include your email in your message</b>.</li>
+      <li>We will email you at <b>treyleo16@gmail.com</b> to let you know whether your model was published or rejected.</li>
+    </ol>
+    <div class="note">Please wait a little; it takes time.</div>
+    <div class="actions">
+      <button class="btn" id="modal-close">Close</button>
+      <a class="btn btn-primary" href="https://contact2.me/VA7XQI" target="_blank" rel="noopener">Open the form</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>ForgeGrit Open — open models, run locally through Ollama.</span>
+    <span class="spacer"></span>
+    <a href="./docs/cli.html">CLI docs</a>
+    <a href="https://contact2.me/VA7XQI" target="_blank" rel="noopener">Publish a model</a>
+    <a href="https://github.com/Trey16885/ForgeGrit-Open" target="_blank" rel="noopener">Source</a>
+  </div>
+</footer>
+<script>
+(function () {
+  var modal = document.getElementById('modal');
+  function open() { modal.hidden = false; }
+  function close() { modal.hidden = true; }
+  document.getElementById('new-repo').addEventListener('click', open);
+  document.getElementById('modal-close').addEventListener('click', close);
+  modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+
+  var q = document.getElementById('q');
+  var cards = [].slice.call(document.querySelectorAll('#grid .card'));
+  var empty = document.getElementById('empty');
+  function filter() {
+    var term = q.value.trim().toLowerCase();
+    var shown = 0;
+    cards.forEach(function (c) {
+      var hit = !term || c.dataset.search.indexOf(term) !== -1;
+      c.hidden = !hit;
+      if (hit) shown++;
+    });
+    empty.hidden = shown !== 0;
+  }
+  q.addEventListener('input', filter);
+  document.getElementById('clear-q').addEventListener('click', function (e) {
+    e.preventDefault();
+    q.value = '';
+    filter();
+    q.focus();
+  });
+})();
+</script>
+</body>
+</html>
