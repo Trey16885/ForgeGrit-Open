@@ -17,6 +17,10 @@ const REPO_URL = 'https://github.com/Trey16885/ForgeGrit-Open';
 const CONTACT_URL = 'https://contact2.me/VA7XQI';
 const CONTACT_EMAIL = 'treyleo16@gmail.com';
 
+// One copy-pasteable line that works without the package being on npm.
+const INSTALL_CLI =
+  'git clone https://github.com/Trey16885/ForgeGrit-Open && npm install -g ./ForgeGrit-Open';
+
 function esc(s) {
   return String(s)
     .replace(/&/g, '&amp;')
@@ -235,7 +239,7 @@ fs.writeFileSync(path.join(ROOT, 'index.html'), indexHtml);
 
 function modelPage(m) {
   const install = [
-    ['npm install -g forgegrit-open', 'Install the ForgeGrit Open CLI (needs Node 18+)'],
+    [INSTALL_CLI, 'Install the ForgeGrit Open CLI (needs Node 18+)'],
     [`forge install model ${m.id}`, 'Pull the model into Ollama'],
     [`forge run ${m.id}`, 'Start it — the CLI asks for agent or chatbot'],
   ];
@@ -328,27 +332,11 @@ for (const m of catalog.models) {
   fs.writeFileSync(path.join(dir, 'index.html'), modelPage(m));
 }
 
-/* ---------- docs/cli.html ---------- */
+/* ---------- docs pages ---------- */
 
-const docsHtml = `${head('ForgeGrit Open CLI — docs', 1, 'How to install and use the forge CLI: installing models, agent mode, chatbot mode, and how it drives Ollama.')}
-
-<main class="wrap">
-  <div class="crumbs"><a href="../index.html">ForgeGrit Open</a> / docs / cli</div>
-
-  <div class="model-head">
-    <h1>The <code>forge</code> CLI</h1>
-    <p class="sum">Install and run ForgeGrit Open models locally, through Ollama.</p>
-    <div class="copyrow" style="max-width:420px">
-      <code>npm install -g forgegrit-open</code><button class="copybtn" type="button">copy</button>
-    </div>
-  </div>
-
-  <div class="cols">
-    <article class="md" id="doc"><p>Loading…</p></article>
-    <aside class="side">
-      <div class="panel">
+const docsSide = `      <div class="panel">
         <h4>Quick start</h4>
-        <div class="copyrow"><code>npm install -g forgegrit-open</code><button class="copybtn" type="button">copy</button></div>
+        <div class="copyrow"><code>${INSTALL_CLI}</code><button class="copybtn" type="button">copy</button></div>
         <div class="copyrow"><code>forge search models --recommended</code><button class="copybtn" type="button">copy</button></div>
         <div class="copyrow"><code>forge install model gpt-6-astra</code><button class="copybtn" type="button">copy</button></div>
         <div class="copyrow"><code>forge run gpt-6-astra</code><button class="copybtn" type="button">copy</button></div>
@@ -362,37 +350,97 @@ const docsHtml = `${head('ForgeGrit Open CLI — docs', 1, 'How to install and u
         </p>
       </div>
       <div class="panel">
+        <h4>Docs</h4>
+        <dl class="kv">
+          <dt>CLI</dt><dd><a href="cli.html">cli</a></dd>
+          <dt>npm</dt><dd><a href="publishing-to-npm.html">publishing-to-npm</a></dd>
+        </dl>
+      </div>
+      <div class="panel">
         <h4>Models</h4>
         <dl class="kv">
 ${catalog.models.map((m) => `          <dt>${esc(m.name)}</dt><dd><a href="../models/${esc(m.id)}/">${esc(m.id)}</a></dd>`).join('\n')}
         </dl>
-      </div>
+      </div>`;
+
+/**
+ * A docs page renders one of the markdown files in docs/ through the same
+ * renderer the model pages use, so the markdown stays the single source.
+ */
+function docPage({ slug, title, heading, summary, description, hero }) {
+  return `${head(title, 1, description)}
+
+<main class="wrap">
+  <div class="crumbs"><a href="../index.html">ForgeGrit Open</a> / docs / ${esc(slug)}</div>
+
+  <div class="model-head">
+    <h1>${heading}</h1>
+    <p class="sum">${esc(summary)}</p>
+${hero ? `    <div class="copyrow" style="max-width:640px">
+      <code>${esc(hero)}</code><button class="copybtn" type="button">copy</button>
+    </div>` : ''}
+  </div>
+
+  <div class="cols">
+    <article class="md" id="doc"><p>Loading…</p></article>
+    <aside class="side">
+${docsSide}
     </aside>
   </div>
 </main>
 
 ${footer(1)}
 `.replace(
-  '</body>',
-  `<script src="../assets/md.js"></script>
+    '</body>',
+    `<script src="../assets/md.js"></script>
 ${copyScript}
 <script>
-fetch('cli.md', { cache: 'no-cache' })
+fetch('${slug}.md', { cache: 'no-cache' })
   .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
   .then(function (text) {
-    document.getElementById('doc').innerHTML = window.ForgeMarkdown.render(text);
+    var html = window.ForgeMarkdown.render(text);
+    // Links between docs point at the .md files; on the site use the pages.
+    document.getElementById('doc').innerHTML =
+      html.replace(/href="([a-z0-9-]+)\\.md"/g, 'href="$1.html"');
   })
   .catch(function () {
     document.getElementById('doc').innerHTML =
       '<p>The docs could not be loaded from this page. Open ' +
-      '<a href="cli.md">cli.md</a> directly, or serve this folder over http ' +
+      '<a href="${slug}.md">${slug}.md</a> directly, or serve this folder over http ' +
       '(for example <code>python3 -m http.server</code>).</p>';
   });
 </script>
 </body>`
-);
+  );
+}
+
+const docs = [
+  {
+    slug: 'cli',
+    title: 'ForgeGrit Open CLI — docs',
+    heading: 'The <code>forge</code> CLI',
+    summary: 'Install and run ForgeGrit Open models locally, through Ollama.',
+    description:
+      'How to install and use the forge CLI: installing models, agent mode, chatbot mode, and how it drives Ollama.',
+    hero: INSTALL_CLI,
+  },
+  {
+    slug: 'publishing-to-npm',
+    title: 'Publishing the CLI to npm',
+    heading: 'Publishing the CLI to npm',
+    summary:
+      'Optional. Putting forgegrit-open on the npm registry so the install command gets shorter.',
+    description:
+      'Step by step: making an npm account, logging in, publishing the forge CLI, and shipping updates.',
+    hero: null,
+  },
+];
 
 fs.mkdirSync(path.join(ROOT, 'docs'), { recursive: true });
-fs.writeFileSync(path.join(ROOT, 'docs/cli.html'), docsHtml);
+for (const doc of docs) {
+  fs.writeFileSync(path.join(ROOT, `docs/${doc.slug}.html`), docPage(doc));
+}
 
-console.log(`built index.html, docs/cli.html and ${catalog.models.length} model pages`);
+console.log(
+  `built index.html, ${docs.length} docs pages and ${catalog.models.length} model pages`
+);
