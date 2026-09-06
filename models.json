@@ -1,0 +1,54 @@
+{
+  "site": "ForgeGrit Open",
+  "contact": "https://contact2.me/VA7XQI",
+  "models": [
+    {
+      "id": "claude-fable-5-1",
+      "name": "Claude Fable 5.1",
+      "ollama": "treyleo16/fable-5-1",
+      "publisher": "treyleo16",
+      "summary": "Long-form storytelling and creative writing model. Holds voice, tone and continuity across very long scenes.",
+      "tags": ["writing", "creative", "story", "fiction", "roleplay", "long-context"],
+      "recommended": true,
+      "params": "8B",
+      "context": "32K",
+      "license": "ForgeGrit Open Model License"
+    },
+    {
+      "id": "gpt-6-astra",
+      "name": "GPT 6 Astra",
+      "ollama": "treyleo16/gpt-6-astra",
+      "publisher": "treyleo16",
+      "summary": "General purpose assistant tuned for reasoning, research answers and everyday tasks. The safe default pick.",
+      "tags": ["general", "assistant", "reasoning", "chat", "research"],
+      "recommended": true,
+      "params": "12B",
+      "context": "64K",
+      "license": "ForgeGrit Open Model License"
+    },
+    {
+      "id": "zai-glm-5.3",
+      "name": "GLM 5.3",
+      "ollama": "treyleo16/glm:5-3",
+      "publisher": "treyleo16",
+      "summary": "Bilingual multilingual model with strong structured output and tool-shaped responses. Good agent driver.",
+      "tags": ["multilingual", "agent", "tools", "json", "general"],
+      "recommended": false,
+      "params": "9B",
+      "context": "128K",
+      "license": "ForgeGrit Open Model License"
+    },
+    {
+      "id": "muse-code",
+      "name": "Muse Code",
+      "ollama": "treyleo16/muse-code",
+      "publisher": "treyleo16",
+      "summary": "Code model for writing, refactoring and explaining software. Built to run well in ForgeGrit agent mode.",
+      "tags": ["code", "coding", "agent", "refactor", "developer", "programming"],
+      "recommended": true,
+      "params": "7B",
+      "context": "32K",
+      "license": "ForgeGrit Open Model License"
+    }
+  ]
+}

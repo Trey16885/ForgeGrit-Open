@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muse Code — ForgeGrit Open</title>
+<meta name="description" content="Code model for writing, refactoring and explaining software. Built to run well in ForgeGrit agent mode.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23ff7a1a'/><text x='50' y='72' font-size='62' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='white'>F</text></svg>">
+<link rel="stylesheet" href="../../assets/forge.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../../index.html"><span class="mark">F</span>ForgeGrit <span class="dim">Open</span></a>
+    <nav>
+      <a href="../../index.html">Models</a>
+      <a href="../../docs/cli.html">CLI</a>
+      <a class="optional" href="https://ollama.com" target="_blank" rel="noopener">Ollama</a>
+      <a class="optional" href="https://github.com/Trey16885/ForgeGrit-Open" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="crumbs"><a href="../../index.html">ForgeGrit Open</a> / models / muse-code</div>
+
+  <div class="model-head">
+    <h1>Muse Code</h1>
+    <p class="sum">Code model for writing, refactoring and explaining software. Built to run well in ForgeGrit agent mode.</p>
+    <div class="meta">
+      <span class="chip hot">★ recommended</span>
+      <span class="chip">7B</span>
+      <span class="chip">32K ctx</span>
+      <span class="chip">code</span>
+      <span class="chip">coding</span>
+      <span class="chip">agent</span>
+      <span class="chip">refactor</span>
+      <span class="chip">developer</span>
+      <span class="chip">programming</span>
+    </div>
+  </div>
+
+  <div class="cols">
+    <article class="md" id="readme">
+      <p>Loading README…</p>
+    </article>
+
+    <aside class="side">
+      <div class="panel">
+        <h4>Install</h4>
+        <div class="copyrow"><code>npm install -g forgegrit-open</code><button class="copybtn" type="button">copy</button></div>
+        <div class="copyrow"><code>forge install model muse-code</code><button class="copybtn" type="button">copy</button></div>
+        <div class="copyrow"><code>forge run muse-code</code><button class="copybtn" type="button">copy</button></div>
+      </div>
+
+      <div class="panel">
+        <h4>Details</h4>
+        <dl class="kv">
+          <dt>CLI model ID</dt><dd>muse-code</dd>
+          <dt>Ollama model</dt><dd>treyleo16/muse-code</dd>
+          <dt>Parameters</dt><dd>7B</dd>
+          <dt>Context</dt><dd>32K</dd>
+          <dt>Publisher</dt><dd>treyleo16</dd>
+          <dt>License</dt><dd>ForgeGrit Open Model License</dd>
+        </dl>
+      </div>
+
+      <div class="panel">
+        <h4>Files</h4>
+        <dl class="kv">
+          <dt>Registry</dt><dd><a href="../../CLI.txt">CLI.txt</a></dd>
+          <dt>Ollama id</dt><dd><a href="ollama.txt">ollama.txt</a></dd>
+          <dt>Readme</dt><dd><a href="README.md">README.md</a></dd>
+        </dl>
+      </div>
+
+      <div class="panel">
+        <h4>Requires</h4>
+        <p style="margin:0;color:var(--ink-dim);font-size:13.5px">
+          <a href="https://ollama.com/download" target="_blank" rel="noopener">Ollama</a>
+          must be installed and signed in. The CLI starts <code>ollama serve</code> for you.
+        </p>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>ForgeGrit Open — open models, run locally through Ollama.</span>
+    <span class="spacer"></span>
+    <a href="../../docs/cli.html">CLI docs</a>
+    <a href="https://contact2.me/VA7XQI" target="_blank" rel="noopener">Publish a model</a>
+    <a href="https://github.com/Trey16885/ForgeGrit-Open" target="_blank" rel="noopener">Source</a>
+  </div>
+</footer>
+<script src="../../assets/md.js"></script>
+<script>
+document.addEventListener('click', function (e) {
+  var btn = e.target.closest('.copybtn');
+  if (!btn) return;
+  var text = btn.parentNode.querySelector('code').textContent;
+  var done = function () {
+    var old = btn.textContent;
+    btn.textContent = 'copied';
+    btn.classList.add('done');
+    setTimeout(function () { btn.textContent = old; btn.classList.remove('done'); }, 1400);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done, function () {});
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (err) {}
+    document.body.removeChild(ta);
+  }
+});
+</script>
+<script>
+fetch('README.md', { cache: 'no-cache' })
+  .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+  .then(function (text) {
+    document.getElementById('readme').innerHTML = window.ForgeMarkdown.render(text);
+  })
+  .catch(function () {
+    document.getElementById('readme').innerHTML =
+      '<p>The README could not be loaded from this page. ' +
+      'Open <a href="README.md">README.md</a> directly, or serve this folder over ' +
+      'http (for example <code>python3 -m http.server</code>) instead of opening the ' +
+      'file straight off disk.</p>';
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# ForgeGrit Open — CLI model registry
+#
+# This file tells the ForgeGrit Open CLI which models exist.
+# If the model id a user typed matches the left side, the right side is the
+# path to that model's ollama.txt, which holds the real Ollama model id.
+#
+# format:  <cli-model-id> = <path to ollama.txt>
+
+claude-fable-5-1 = models/claude-fable-5-1/ollama.txt
+gpt-6-astra      = models/gpt-6-astra/ollama.txt
+zai-glm-5.3      = models/zai-glm-5.3/ollama.txt
+muse-code        = models/muse-code/ollama.txt
