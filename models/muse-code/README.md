@@ -1,6 +1,6 @@
 # Muse Code
 
-Code model, published on ForgeGrit Open.
+Agentic coding model, published on ForgeGrit Open.
 
 Muse Code writes, refactors and explains software. It was tuned with ForgeGrit
 agent mode in mind, so it is comfortable reading a folder, changing files, and

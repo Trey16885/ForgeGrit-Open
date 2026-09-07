@@ -1,10 +1,10 @@
 # GPT 6 Astra
 
-General purpose assistant model, published on ForgeGrit Open.
+The most capable model on ForgeGrit Open.
 
-Astra is the default pick. If you do not know which model you want, take this
-one — it answers questions, explains things, plans work, and handles the long
-middle of most conversations without falling over.
+Astra is the flagship. Stronger reasoning and analysis than Fable, and the one
+to reach for on complex multi-step work — research, coding, planning, and the
+long middle of a hard problem.
 
 ## At a glance
 

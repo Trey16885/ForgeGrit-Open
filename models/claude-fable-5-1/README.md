@@ -1,6 +1,6 @@
 # Claude Fable 5.1
 
-Long-form storytelling and creative writing model, published on ForgeGrit Open.
+Mythos-class model, published on ForgeGrit Open.
 
 Fable is built for people who write. It holds a voice across long scenes, keeps
 character names and details straight, and does not flatten your prose into

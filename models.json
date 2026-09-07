@@ -8,8 +8,14 @@
       "name": "Claude Fable 5.1",
       "ollama": "treyleo16/fable-5-1",
       "publisher": "treyleo16",
-      "summary": "Long-form storytelling and creative writing model.",
-      "tags": ["writing", "creative", "story", "fiction", "roleplay"],
+      "summary": "Mythos-class. Long-form and careful — holds a thread across long sessions, explains its reasoning, and flags uncertainty instead of bluffing.",
+      "tags": [
+        "mythos-class",
+        "long-form",
+        "reasoning",
+        "writing",
+        "careful"
+      ],
       "recommended": true
     },
     {
@@ -17,8 +23,14 @@
       "name": "GPT 6 Astra",
       "ollama": "treyleo16/gpt-6-astra",
       "publisher": "treyleo16",
-      "summary": "General purpose assistant for reasoning, research answers and everyday tasks.",
-      "tags": ["general", "assistant", "reasoning", "chat", "research"],
+      "summary": "The most capable model on ForgeGrit Open. Stronger reasoning and analysis than Fable, built for complex multi-step work, coding and research.",
+      "tags": [
+        "flagship",
+        "reasoning",
+        "coding",
+        "research",
+        "analysis"
+      ],
       "recommended": true
     },
     {
@@ -26,8 +38,14 @@
       "name": "GLM 5.3",
       "ollama": "treyleo16/glm:5-3",
       "publisher": "treyleo16",
-      "summary": "Multilingual model with strong structured output and tool-shaped responses.",
-      "tags": ["multilingual", "agent", "tools", "json", "general"],
+      "summary": "Precise and objective. Prioritises factual accuracy, works problems in steps, and states its limits rather than inventing an answer.",
+      "tags": [
+        "analytical",
+        "structured",
+        "objective",
+        "multilingual",
+        "general"
+      ],
       "recommended": false
     },
     {
@@ -35,8 +53,14 @@
       "name": "Muse Code",
       "ollama": "treyleo16/muse-code",
       "publisher": "treyleo16",
-      "summary": "Code model for writing, refactoring and explaining software.",
-      "tags": ["code", "coding", "agent", "refactor", "developer", "programming"],
+      "summary": "Agentic coding model. Terse and direct, no filler — built for real software work in the folder you are sitting in.",
+      "tags": [
+        "code",
+        "agent",
+        "cli",
+        "developer",
+        "terse"
+      ],
       "recommended": true
     }
   ]
