@@ -395,11 +395,11 @@ const noToEverything = { allowAll: false, check: async () => false };
     const readme = fs.readFileSync(path.join(ROOT, 'README.md'), 'utf8');
     assert.ok(/<picture>/.test(readme), 'README does not use <picture>');
     assert.ok(
-      /srcset="assets\/logo-dark\.svg"/.test(readme),
+      /srcset="[^"]*\/logo-dark\.svg"/.test(readme),
       'README does not offer the dark variant'
     );
     assert.ok(
-      /<img src="assets\/logo-light\.svg" alt="ForgeGrit Open"/.test(readme),
+      /<img src="[^"]*\/logo-light\.svg" alt="ForgeGrit Open"/.test(readme),
       'README fallback image or alt text is wrong'
     );
   });

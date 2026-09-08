@@ -1,8 +1,8 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/logo-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="assets/logo-light.svg">
-    <img src="assets/logo-light.svg" alt="ForgeGrit Open" width="320">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Trey16885/ForgeGrit-Open/main/assets/logo-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Trey16885/ForgeGrit-Open/main/assets/logo-light.svg">
+    <img src="https://raw.githubusercontent.com/Trey16885/ForgeGrit-Open/main/assets/logo-light.svg" alt="ForgeGrit Open" width="320">
   </picture>
 </p>
 
