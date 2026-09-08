@@ -1,6 +1,6 @@
 {
   "name": "forgegrit-open",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ForgeGrit Open — CLI for open models published on ForgeGrit Open, run locally through Ollama.",
   "bin": {
     "forge": "cli/bin/forge.js"
