@@ -348,7 +348,8 @@ const noToEverything = { allowAll: false, check: async () => false };
   });
 
   await test('the icon set exists and every page links it at the right depth', () => {
-    for (const f of ['mark.svg', 'logo.svg', 'favicon-32.png', 'favicon-192.png', 'apple-touch-icon.png']) {
+    for (const f of ['mark.svg', 'logo.svg', 'logo-light.svg', 'logo-dark.svg',
+                     'favicon-32.png', 'favicon-192.png', 'apple-touch-icon.png']) {
       assert.ok(fs.existsSync(path.join(ROOT, 'assets', f)), 'assets/' + f + ' missing');
     }
     // PNG magic number + dimensions straight out of the IHDR chunk.
@@ -374,6 +375,33 @@ const noToEverything = { allowAll: false, check: async () => false };
       assert.ok(html.includes(`<img class="mark" src="${up}assets/mark.svg"`), file + ' topbar logo');
       assert.ok(!/<span class="mark">F<\/span>/.test(html), file + ' still has the placeholder letter mark');
     }
+  });
+
+  await test('the README logo survives GitHub stripping CSS from SVGs', () => {
+    // GitHub removes <style> from SVGs in a README. The two variants carry
+    // their fills as attributes so the wordmark cannot end up unfilled, and
+    // the README picks between them with <picture>.
+    const fills = { 'logo-light.svg': '#14161a', 'logo-dark.svg': '#e9eaec' };
+    for (const [file, wordFill] of Object.entries(fills)) {
+      const svg = fs.readFileSync(path.join(ROOT, 'assets', file), 'utf8');
+      assert.ok(!/<style>/.test(svg), file + ' still carries a <style> block');
+      assert.ok(!/class="fg-/.test(svg), file + ' still depends on CSS classes');
+      assert.ok(
+        new RegExp('fill="' + wordFill + '"').test(svg),
+        file + ' is missing the ' + wordFill + ' wordmark fill'
+      );
+    }
+
+    const readme = fs.readFileSync(path.join(ROOT, 'README.md'), 'utf8');
+    assert.ok(/<picture>/.test(readme), 'README does not use <picture>');
+    assert.ok(
+      /srcset="assets\/logo-dark\.svg"/.test(readme),
+      'README does not offer the dark variant'
+    );
+    assert.ok(
+      /<img src="assets\/logo-light\.svg" alt="ForgeGrit Open"/.test(readme),
+      'README fallback image or alt text is wrong'
+    );
   });
 
   await test('both docs pages render their markdown source', () => {
