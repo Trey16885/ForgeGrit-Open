@@ -1,6 +1,6 @@
 # GLM 5.3
 
-Multilingual model with strong structured output, published on ForgeGrit Open.
+Precise, objective model, published on ForgeGrit Open.
 
 GLM 5.3 is the one to reach for when the answer has to be a *shape* — JSON, a
 table, a config file, a tool call — and when the conversation is not in English.

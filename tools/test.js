@@ -88,7 +88,7 @@ const noToEverything = { allowAll: false, check: async () => false };
   });
 
   await test('search finds by tag, name and ollama id', () => {
-    assert.ok(registry.search('story').some((m) => m.id === 'claude-fable-5-1'));
+    assert.ok(registry.search('mythos').some((m) => m.id === 'claude-fable-5-1'));
     assert.ok(registry.search('muse').some((m) => m.id === 'muse-code'));
     assert.ok(registry.search('glm:5-3').some((m) => m.id === 'zai-glm-5.3'));
     assert.strictEqual(registry.search('zzzz').length, 0);
