@@ -39,7 +39,37 @@ function loadChromium() {
   );
 }
 
+/**
+ * logo.svg switches its wordmark colour with a <style> media query. GitHub
+ * strips CSS out of SVGs in a README, which would leave the wordmark unfilled
+ * and invisible on the dark theme — so derive two fixed-colour variants for
+ * the <picture> element to choose between. No browser needed for this part.
+ */
+function writeLogoVariants() {
+  const src = fs.readFileSync(path.join(ASSETS, 'logo.svg'), 'utf8');
+
+  const variants = {
+    'logo-light.svg': { word: '#14161a', sub: '#6f7681' },
+    'logo-dark.svg': { word: '#e9eaec', sub: '#6f7681' },
+  };
+
+  for (const [file, colours] of Object.entries(variants)) {
+    const out = src
+      .replace(/\n?\s*<style>[\s\S]*?<\/style>/, '')
+      .replace(/class="fg-word"/g, `fill="${colours.word}"`)
+      .replace(/class="fg-sub"/g, `fill="${colours.sub}"`);
+
+    if (/<style>|class="fg-/.test(out)) {
+      throw new Error(file + ': theme CSS survived the rewrite');
+    }
+    fs.writeFileSync(path.join(ASSETS, file), out);
+    console.log(`  ${file.padEnd(22)} wordmark ${colours.word}`);
+  }
+}
+
 (async () => {
+  writeLogoVariants();
+
   const chromium = loadChromium();
   const svg = fs.readFileSync(path.join(ASSETS, 'mark.svg'), 'utf8');
 
