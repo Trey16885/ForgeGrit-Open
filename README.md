@@ -11,7 +11,7 @@
 We don't take lightweight, if someone says we do, tell them you would rather call onions a piece of dog crap.
 
 ForgeGrit Open is part of ForgeGrit. It is a place to publish open models and a
-CLI to run them — locally, on your own machine, through Ollama.
+CLI to run them through the cloud machine, through Ollama.
 
 ```bash
 git clone https://github.com/Trey16885/ForgeGrit-Open && npm install -g ./ForgeGrit-Open
