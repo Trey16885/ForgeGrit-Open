@@ -1,19 +1,20 @@
 # Publishing the CLI to npm
 
-**You do not have to do this.** People can already install the CLI:
-
-```bash
-git clone https://github.com/Trey16885/ForgeGrit-Open && npm install -g ./ForgeGrit-Open
-```
-
-Publishing to npm only buys you the shorter command:
+`forgegrit-open` is **already published**, so anyone can install it with:
 
 ```bash
 npm install -g forgegrit-open
 ```
 
-If you want that, here is the whole thing, start to finish. It takes about ten
-minutes the first time and about twenty seconds every time after.
+This page is the reference for shipping the *next* version — and for setting the
+whole thing up again on a new machine. The first-time steps take about ten
+minutes; every release after that is about twenty seconds.
+
+**Shipping an update in one line:** bump the version, then publish.
+
+```bash
+npm version patch && npm publish
+```
 
 ---
 

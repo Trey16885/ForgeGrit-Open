@@ -17,9 +17,8 @@ const REPO_URL = 'https://github.com/Trey16885/ForgeGrit-Open';
 const CONTACT_URL = 'https://contact2.me/VA7XQI';
 const CONTACT_EMAIL = 'treyleo16@gmail.com';
 
-// One copy-pasteable line that works without the package being on npm.
-const INSTALL_CLI =
-  'git clone https://github.com/Trey16885/ForgeGrit-Open && npm install -g ./ForgeGrit-Open';
+// Published to the npm registry, so this is the whole install.
+const INSTALL_CLI = 'npm install -g forgegrit-open';
 
 function esc(s) {
   return String(s)

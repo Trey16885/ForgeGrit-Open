@@ -14,7 +14,7 @@ ForgeGrit Open is part of ForgeGrit. It is a place to publish open models and a
 CLI to run them through the cloud machine, through Ollama.
 
 ```bash
-git clone https://github.com/Trey16885/ForgeGrit-Open && npm install -g ./ForgeGrit-Open
+npm install -g forgegrit-open
 
 forge search models --recommended
 forge install model muse-code
@@ -59,9 +59,9 @@ Press **+ New Repository** on the site, or follow it here:
 
 Full docs: [docs/cli.md](docs/cli.md) · [on the site](docs/cli.html)
 
-Installing it does not require npm publishing — the clone above puts `forge` on
-your PATH. To put it on the npm registry as `npm install -g forgegrit-open`,
-follow [docs/publishing-to-npm.md](docs/publishing-to-npm.md).
+Published on npm as
+[`forgegrit-open`](https://www.npmjs.com/package/forgegrit-open). Shipping a new
+version is covered in [docs/publishing-to-npm.md](docs/publishing-to-npm.md).
 
 ```
 forge help                          this help
