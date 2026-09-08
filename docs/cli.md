@@ -12,20 +12,17 @@ npm install -g forgegrit-open
 Node 18 or newer. That is all it takes — `forge` is on your PATH afterwards and
 works from any folder.
 
-Update it with `npm install -g forgegrit-open@latest`, and check what you have
-with `forge version`.
-
-To run an unreleased change, clone the repo and install the working copy:
+Update it with:
 
 ```bash
-git clone https://github.com/Trey16885/ForgeGrit-Open
-cd ForgeGrit-Open
-npm install -g .
+npm upgrade -g forgegrit-open
 ```
+
+`forge version` tells you which one you have.
 
 > Installing straight from a git URL (`npm install -g git+https://...`) is
 > **not** recommended — npm 10 has a bug that leaves the global install
-> pointing at a deleted cache folder. Use the registry or a clone.
+> pointing at a deleted cache folder. Install from the registry.
 
 ### Ollama is required
 

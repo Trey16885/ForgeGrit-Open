@@ -367,13 +367,6 @@ const docsSide = `      <div class="panel">
         </p>
       </div>
       <div class="panel">
-        <h4>Docs</h4>
-        <dl class="kv">
-          <dt>CLI</dt><dd><a href="cli.html">cli</a></dd>
-          <dt>npm</dt><dd><a href="publishing-to-npm.html">publishing-to-npm</a></dd>
-        </dl>
-      </div>
-      <div class="panel">
         <h4>Models</h4>
         <dl class="kv">
 ${catalog.models.map((m) => `          <dt>${esc(m.name)}</dt><dd><a href="../models/${esc(m.id)}/">${esc(m.id)}</a></dd>`).join('\n')}
@@ -440,16 +433,6 @@ const docs = [
     description:
       'How to install and use the forge CLI: installing models, agent mode, chatbot mode, and how it drives Ollama.',
     hero: INSTALL_CLI,
-  },
-  {
-    slug: 'publishing-to-npm',
-    title: 'Publishing the CLI to npm',
-    heading: 'Publishing the CLI to npm',
-    summary:
-      'Optional. Putting forgegrit-open on the npm registry so the install command gets shorter.',
-    description:
-      'Step by step: making an npm account, logging in, publishing the forge CLI, and shipping updates.',
-    hero: null,
   },
 ];
 

@@ -365,7 +365,6 @@ const noToEverything = { allowAll: false, check: async () => false };
     const pages = [
       { file: 'index.html', up: './' },
       { file: 'docs/cli.html', up: '../' },
-      { file: 'docs/publishing-to-npm.html', up: '../' },
       ...registry.ids().map((id) => ({ file: `models/${id}/index.html`, up: '../../' })),
     ];
     for (const { file, up } of pages) {
@@ -405,8 +404,8 @@ const noToEverything = { allowAll: false, check: async () => false };
     );
   });
 
-  await test('both docs pages render their markdown source', () => {
-    for (const slug of ['cli', 'publishing-to-npm']) {
+  await test('the docs page renders its markdown source', () => {
+    for (const slug of ['cli']) {
       const html = fs.readFileSync(path.join(ROOT, `docs/${slug}.html`), 'utf8');
       assert.ok(fs.existsSync(path.join(ROOT, `docs/${slug}.md`)), slug + '.md missing');
       assert.ok(html.includes(`fetch('${slug}.md'`), slug + ' fetch');

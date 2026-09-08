@@ -60,8 +60,7 @@ Press **+ New Repository** on the site, or follow it here:
 Full docs: [docs/cli.md](docs/cli.md) · [on the site](docs/cli.html)
 
 Published on npm as
-[`forgegrit-open`](https://www.npmjs.com/package/forgegrit-open). Shipping a new
-version is covered in [docs/publishing-to-npm.md](docs/publishing-to-npm.md).
+[`forgegrit-open`](https://www.npmjs.com/package/forgegrit-open).
 
 ```
 forge help                          this help
@@ -120,7 +119,6 @@ models/<id>/
   README.md             the model's documentation
   ollama.txt            the Ollama model id, one line
 docs/cli.md             CLI documentation
-docs/publishing-to-npm.md  how to put the CLI on the npm registry
 cli/bin/forge.js        CLI entry point
 cli/src/                registry, ollama client, chat mode, agent mode, ui
 tools/build.js          regenerates index.html, docs and model pages
@@ -153,6 +151,14 @@ never touches a real Ollama install and never pulls a real model.
 
 The build fails loudly if `CLI.txt`, `models.json` and the `ollama.txt` files
 disagree with each other.
+
+### Releasing
+
+```bash
+npm version patch && npm publish
+```
+
+npm refuses to publish the same version twice, so the bump comes first.
 
 **Do not guess a model's specs.** `params`, `context` and `license` in
 `models.json` are optional — leave a field out and the site simply does not
