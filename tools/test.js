@@ -288,27 +288,28 @@ const noToEverything = { allowAll: false, check: async () => false };
   });
 
   await test('the install command on every page is one that works today', () => {
-    // Until forgegrit-open is on the npm registry, no page may tell people to
-    // `npm install -g forgegrit-open` — it would just fail for them.
-    const published = false;
+    // forgegrit-open is on the npm registry, so every page installs from it.
+    // Nothing may fall back to the old clone-and-install line, which was only
+    // there while the package was unpublished.
+    const INSTALL = 'npm install -g forgegrit-open';
     const pages = [
-      path.join(ROOT, 'index.html'),
       path.join(ROOT, 'docs/cli.html'),
-      path.join(ROOT, 'docs/publishing-to-npm.html'),
       ...registry.ids().map((id) => path.join(ROOT, 'models', id, 'index.html')),
     ];
     for (const page of pages) {
       const html = fs.readFileSync(page, 'utf8');
-      if (!published) {
-        assert.ok(
-          !/npm install -g forgegrit-open/.test(html),
-          path.relative(ROOT, page) + ' points at an unpublished npm package'
-        );
-      }
+      assert.ok(html.includes(INSTALL), path.relative(ROOT, page) + ' is missing the install command');
+      assert.ok(
+        !/npm install -g \.\/ForgeGrit-Open/.test(html),
+        path.relative(ROOT, page) + ' still uses the pre-publish clone install'
+      );
     }
-    for (const id of registry.ids()) {
-      const html = fs.readFileSync(path.join(ROOT, 'models', id, 'index.html'), 'utf8');
-      assert.ok(html.includes('npm install -g ./ForgeGrit-Open'), id + ' install command');
+
+    // The README and the CLI docs are the two places a person actually reads
+    // the command from, so pin them too.
+    for (const doc of ['README.md', 'docs/cli.md']) {
+      const text = fs.readFileSync(path.join(ROOT, doc), 'utf8');
+      assert.ok(text.includes(INSTALL), doc + ' is missing the install command');
     }
   });
 
@@ -364,7 +365,6 @@ const noToEverything = { allowAll: false, check: async () => false };
     const pages = [
       { file: 'index.html', up: './' },
       { file: 'docs/cli.html', up: '../' },
-      { file: 'docs/publishing-to-npm.html', up: '../' },
       ...registry.ids().map((id) => ({ file: `models/${id}/index.html`, up: '../../' })),
     ];
     for (const { file, up } of pages) {
@@ -404,8 +404,8 @@ const noToEverything = { allowAll: false, check: async () => false };
     );
   });
 
-  await test('both docs pages render their markdown source', () => {
-    for (const slug of ['cli', 'publishing-to-npm']) {
+  await test('the docs page renders its markdown source', () => {
+    for (const slug of ['cli']) {
       const html = fs.readFileSync(path.join(ROOT, `docs/${slug}.html`), 'utf8');
       assert.ok(fs.existsSync(path.join(ROOT, `docs/${slug}.md`)), slug + '.md missing');
       assert.ok(html.includes(`fetch('${slug}.md'`), slug + ' fetch');
